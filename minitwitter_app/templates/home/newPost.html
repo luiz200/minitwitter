@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Página inicial {% endblock %}
+
+{% block content %}
+    <h1>Publicar</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <br>
+        <input class="btn btn-primary" type="submit" value="publicar">
+    </form>
+{% endblock %}

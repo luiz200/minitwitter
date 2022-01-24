@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %} Página inicial {% endblock %}
+
+{% block content %}
+<br>
+  {% for public in publics %}
+  <div class="card mb-3" style="max-width: 1540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{ public.file }}" class="img-fluid rounded-start" alt="">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{public.title}}</h5>
+            <p class="card-text">{{public.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <br>
+    <br>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          {% if publics.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ publics.previous_page_number }}">Anterior</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Anterior</a>
+            </li>
+          {% endif %}
+          {% for i in publics.paginator.page_range %}
+            {% if publics.number == i %}
+              <li class="page-item active success" aria-current="page">
+                <span class="page-link">
+                  {{ i }}
+                </span>
+              </li>
+            {% else %}
+              <li class="page-item success"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if publics.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ publics.next_page_number }}">Próxima</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1" aria-disabled="True">Próxima</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+{% endblock %}
